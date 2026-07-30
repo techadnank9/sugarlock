@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "project": {
+    "catalog": "prod",
+    "initializedAt": "2026-07-30T22:34:30.355Z",
+    "merchantDisplayName": "acct_1Tz2TfFx2wMkej47",
+    "merchantId": "acct_1Tz2TfFx2wMkej47",
+    "projectId": "project_61V8QUQamAknFYPX316V8QR2LvSQEx4gWh4tKl5fcI8m",
+    "projectName": "sugarlock"
+  },
+  "providers": {
+    "auth0": {
+      "accountRequestId": "facctrq_61V8QWSSoB42TPML416V8QR2LvSQEx4gWh4tKl5fcHJ2",
+      "configuration": {
+        "locality": "us",
+        "naming_prefix": "sugarlock"
+      },
+      "linkedAt": "2026-07-30T22:36:43.208Z",
+      "providerId": "prvdr_61UVctyxfLOj4FpVw5Bmi",
+      "providerName": "Auth0",
+      "redirectUrl": null,
+      "requestedAt": "2026-07-30T22:36:43.208Z",
+      "status": "complete"
+    },
+    "supabase": {
+      "accountRequestId": "facctrq_61V8QX3oXkKZdzk5J16V8QR2LvSQEx4gWh4tKl5fcIJ6",
+      "configuration": {},
+      "linkedAt": "2026-07-30T22:37:25.645Z",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "redirectUrl": null,
+      "requestedAt": "2026-07-30T22:37:25.645Z",
+      "status": "complete"
+    }
+  },
+  "resources": {
+    "auth0-plan": {
+      "configuration": {},
+      "createdAt": "2026-07-30T22:36:46.546Z",
+      "lastRevealedAt": "2026-07-30T22:36:46.888Z",
+      "lastStatus": "complete",
+      "name": "auth0-plan",
+      "providerId": "prvdr_61UVctyxfLOj4FpVw5Bmi",
+      "providerName": "Auth0",
+      "resourceId": "fres_61V8QWZsEdt9KDFoe16V8QR2LvSQEx4gWh4tKl5fcCqW",
+      "serviceId": "free"
+    },
+    "sugarlock": {
+      "configuration": {
+        "name": "sugarlock",
+        "app_type": "regular_web",
+        "callbacks": [
+          "http://localhost:3000/auth/callback"
+        ],
+        "allowed_logout_urls": [
+          "http://localhost:3000"
+        ],
+        "web_origins": [
+          "http://localhost:3000"
+        ]
+      },
+      "createdAt": "2026-07-30T22:37:00.025Z",
+      "lastRevealedAt": "2026-07-30T23:02:05.747Z",
+      "lastStatus": "complete",
+      "name": "sugarlock",
+      "providerId": "prvdr_61UVctyxfLOj4FpVw5Bmi",
+      "providerName": "Auth0",
+      "resourceId": "fres_61V8QWl4EhKx8Rs5816V8QR2LvSQEx4gWh4tKl5fcSMi",
+      "serviceId": "client"
+    },
+    "sugarlock-2": {
+      "configuration": {
+        "name": "sugarlock",
+        "region": "americas"
+      },
+      "createdAt": "2026-07-30T22:38:19.316Z",
+      "lastRevealedAt": "2026-07-30T22:38:19.695Z",
+      "lastStatus": "complete",
+      "name": "sugarlock-2",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "resourceId": "fres_61V8QXmoDjss3B2i316V8QR2LvSQEx4gWh4tKl5fcWoa",
+      "serviceId": "project"
+    },
+    "supabase-plan": {
+      "configuration": {},
+      "createdAt": "2026-07-30T22:37:48.589Z",
+      "lastRevealedAt": "2026-07-30T22:37:49.041Z",
+      "lastStatus": "complete",
+      "name": "supabase-plan",
+      "providerId": "prvdr_61UIXYHdsyF69pZbG52n2",
+      "providerName": "Supabase",
+      "resourceId": "fres_61V8QXGGVq8e0SNJd16V8QR2LvSQEx4gWh4tKl5fcCzo",
+      "serviceId": "free"
+    }
+  },
+  "managedProjectVariableEnvKeys": {
+    ".env": [
+      "DATABASE_URL"
+    ]
+  }
+}
