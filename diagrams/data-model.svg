@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="560" viewBox="0 0 680 560" font-family="Inter, Arial, sans-serif">
+<defs>
+<marker id="one" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M5 1V9" stroke="#5f5e5a" stroke-width="1.2"/></marker>
+<marker id="many" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="10" markerHeight="10" orient="auto"><path d="M2 2L10 6L2 10M10 6H2" fill="none" stroke="#5f5e5a" stroke-width="1.2"/></marker>
+</defs>
+<rect width="680" height="560" fill="#ffffff"/>
+<text x="340" y="24" text-anchor="middle" font-size="13" fill="#5f5e5a" letter-spacing="1">DATA MODEL</text>
+
+<!-- USER -->
+<rect x="40" y="50" width="180" height="118" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<rect x="40" y="50" width="180" height="28" rx="8" fill="#B5D4F4"/>
+<text x="52" y="69" font-size="14" font-weight="500" fill="#0C447C">User</text>
+<text x="52" y="98" font-size="12" fill="#0C447C">id · uuid PK</text>
+<text x="52" y="118" font-size="12" fill="#185FA5">auth0Id</text>
+<text x="52" y="138" font-size="12" fill="#185FA5">email</text>
+<text x="52" y="158" font-size="12" fill="#185FA5">displayName</text>
+
+<!-- GIFT -->
+<rect x="260" y="50" width="180" height="158" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<rect x="260" y="50" width="180" height="28" rx="8" fill="#9FE1CB"/>
+<text x="272" y="69" font-size="14" font-weight="500" fill="#085041">Gift</text>
+<text x="272" y="98" font-size="12" fill="#085041">id · uuid PK</text>
+<text x="272" y="118" font-size="12" fill="#0F6E56">senderId FK</text>
+<text x="272" y="138" font-size="12" fill="#0F6E56">recipientId FK</text>
+<text x="272" y="158" font-size="12" fill="#0F6E56">amountCents</text>
+<text x="272" y="178" font-size="12" fill="#0F6E56">status</text>
+<text x="272" y="198" font-size="12" fill="#0F6E56">stripeRef</text>
+
+<!-- CONDITION -->
+<rect x="480" y="50" width="170" height="138" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<rect x="480" y="50" width="170" height="28" rx="8" fill="#CECBF6"/>
+<text x="492" y="69" font-size="14" font-weight="500" fill="#3C3489">Condition</text>
+<text x="492" y="98" font-size="12" fill="#3C3489">id · uuid PK</text>
+<text x="492" y="118" font-size="12" fill="#534AB7">giftId FK</text>
+<text x="492" y="138" font-size="12" fill="#534AB7">type</text>
+<text x="492" y="158" font-size="12" fill="#534AB7">params · jsonb</text>
+<text x="492" y="178" font-size="12" fill="#534AB7">unlockAt</text>
+
+<!-- LEDGER -->
+<rect x="260" y="360" width="180" height="138" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<rect x="260" y="360" width="180" height="28" rx="8" fill="#FAC775"/>
+<text x="272" y="379" font-size="14" font-weight="500" fill="#633806">LedgerEntry</text>
+<text x="272" y="408" font-size="12" fill="#633806">id · uuid PK</text>
+<text x="272" y="428" font-size="12" fill="#854F0B">giftId FK</text>
+<text x="272" y="448" font-size="12" fill="#854F0B">event</text>
+<text x="272" y="468" font-size="12" fill="#854F0B">amountCents</text>
+<text x="272" y="488" font-size="12" fill="#854F0B">at</text>
+
+<!-- CONFIRMATION -->
+<rect x="480" y="360" width="170" height="138" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<rect x="480" y="360" width="170" height="28" rx="8" fill="#F5C4B3"/>
+<text x="492" y="379" font-size="14" font-weight="500" fill="#712B13">Confirmation</text>
+<text x="492" y="408" font-size="12" fill="#712B13">id · uuid PK</text>
+<text x="492" y="428" font-size="12" fill="#993C1D">conditionId FK</text>
+<text x="492" y="448" font-size="12" fill="#993C1D">confirmerId FK</text>
+<text x="492" y="468" font-size="12" fill="#993C1D">decision</text>
+<text x="492" y="488" font-size="12" fill="#993C1D">decidedAt</text>
+
+<!-- relations -->
+<line x1="220" y1="109" x2="260" y2="109" stroke="#5f5e5a" stroke-width="1" marker-start="url(#one)" marker-end="url(#many)"/>
+<text x="240" y="102" text-anchor="middle" font-size="11" fill="#5f5e5a">sends</text>
+<line x1="440" y1="119" x2="480" y2="119" stroke="#5f5e5a" stroke-width="1" marker-start="url(#one)" marker-end="url(#one)"/>
+<text x="460" y="112" text-anchor="middle" font-size="11" fill="#5f5e5a">has</text>
+<line x1="350" y1="208" x2="350" y2="360" stroke="#5f5e5a" stroke-width="1" marker-start="url(#one)" marker-end="url(#many)"/>
+<text x="378" y="286" text-anchor="middle" font-size="11" fill="#5f5e5a">records</text>
+<line x1="565" y1="188" x2="565" y2="360" stroke="#5f5e5a" stroke-width="1" marker-start="url(#one)" marker-end="url(#many)"/>
+<text x="597" y="276" text-anchor="middle" font-size="11" fill="#5f5e5a">awaits</text>
+<path d="M130 168 L130 448 L260 448" fill="none" stroke="#5f5e5a" stroke-width="1" marker-start="url(#one)" marker-end="url(#many)"/>
+<text x="150" y="440" text-anchor="middle" font-size="11" fill="#5f5e5a">confirms</text>
+</svg>

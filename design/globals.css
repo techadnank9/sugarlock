@@ -1,0 +1,43 @@
+/* Sugarlock — design tokens as CSS variables.
+   Drop into app/globals.css (Next.js) and reference via var(--token) or map
+   into tailwind.config theme.extend.colors. */
+
+:root {
+  --ink: #10182b;
+  --ink-soft: #1a2540;
+  --ink-card: #1f2c4d;
+
+  --gold: #d9a441;
+  --gold-soft: #e8c67e;
+  --gold-dim: #8a6d33;
+
+  --paper: #f3efe4;
+  --paper-dim: #c9c2b2;
+
+  --teal: #4ca894;
+
+  --line: rgba(233, 198, 126, 0.16);
+  --line-strong: rgba(233, 198, 126, 0.32);
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  --radius-card: 18px;
+  --radius-control: 14px;
+}
+
+/* Google Fonts import — or load via next/font for production.
+   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap'); */
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* State color rule — the core of the visual identity.
+   .is-locked   -> gold accents (value held)
+   .is-unlocked -> teal accents (value freed) */
+.is-locked { --state: var(--gold); }
+.is-unlocked { --state: var(--teal); }

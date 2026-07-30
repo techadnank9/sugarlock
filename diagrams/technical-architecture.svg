@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="620" viewBox="0 0 680 620" font-family="Inter, Arial, sans-serif">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="#5f5e5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+</defs>
+<rect width="680" height="620" fill="#ffffff"/>
+
+<text x="120" y="34" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">Users</text>
+<rect x="40" y="46" width="160" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="120" y="70" text-anchor="middle" font-size="14" fill="#2C2C2A">Sender</text>
+<rect x="40" y="94" width="160" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="120" y="118" text-anchor="middle" font-size="14" fill="#2C2C2A">Recipient</text>
+<rect x="40" y="142" width="160" height="40" rx="8" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="0.5"/>
+<text x="120" y="166" text-anchor="middle" font-size="14" fill="#2C2C2A">Confirmer</text>
+
+<line x1="200" y1="114" x2="254" y2="114" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="256" y="86" width="170" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+<text x="341" y="110" text-anchor="middle" font-size="14" font-weight="500" fill="#712B13">Auth0</text>
+<text x="341" y="128" text-anchor="middle" font-size="12" fill="#993C1D">identity + role scoping</text>
+<line x1="341" y1="142" x2="341" y2="178" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="246" y="180" width="190" height="56" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="341" y="204" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C">Next.js app</text>
+<text x="341" y="222" text-anchor="middle" font-size="12" fill="#185FA5">UI + API routes</text>
+
+<line x1="246" y1="208" x2="182" y2="208" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="20" y="180" width="160" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+<text x="100" y="204" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">Unlock engine</text>
+<text x="100" y="222" text-anchor="middle" font-size="12" fill="#534AB7">checks conditions</text>
+
+<line x1="436" y1="208" x2="498" y2="208" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="500" y="180" width="160" height="56" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+<text x="580" y="204" text-anchor="middle" font-size="14" font-weight="500" fill="#27500A">Stripe</text>
+<text x="580" y="222" text-anchor="middle" font-size="12" fill="#3B6D11">escrow + payout</text>
+
+<line x1="341" y1="236" x2="341" y2="272" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+<rect x="246" y="274" width="190" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="341" y="298" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">Database</text>
+<text x="341" y="316" text-anchor="middle" font-size="12" fill="#0F6E56">gifts, users, ledger</text>
+
+<path d="M100 236 L100 302 L246 302" fill="none" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<rect x="40" y="378" width="600" height="212" rx="16" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+<text x="60" y="404" font-size="14" font-weight="500" fill="#2C2C2A">Unlock condition types</text>
+
+<rect x="66" y="422" width="130" height="146" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+<text x="131" y="446" text-anchor="middle" font-size="14" font-weight="500" fill="#0C447C">Time-based</text>
+<text x="131" y="476" text-anchor="middle" font-size="12" fill="#185FA5">date or duration</text>
+<text x="131" y="496" text-anchor="middle" font-size="12" fill="#185FA5">scheduled job</text>
+<text x="131" y="540" text-anchor="middle" font-size="12" fill="#185FA5">MVP baseline</text>
+
+<rect x="208" y="422" width="130" height="146" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+<text x="273" y="446" text-anchor="middle" font-size="14" font-weight="500" fill="#633806">Self-attested</text>
+<text x="273" y="476" text-anchor="middle" font-size="12" fill="#854F0B">recipient marks</text>
+<text x="273" y="496" text-anchor="middle" font-size="12" fill="#854F0B">optional proof</text>
+<text x="273" y="540" text-anchor="middle" font-size="12" fill="#854F0B">upload artifact</text>
+
+<rect x="350" y="422" width="130" height="146" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+<text x="415" y="446" text-anchor="middle" font-size="14" font-weight="500" fill="#3C3489">Third-party</text>
+<text x="415" y="476" text-anchor="middle" font-size="12" fill="#534AB7">confirmer approves</text>
+<text x="415" y="496" text-anchor="middle" font-size="12" fill="#534AB7">scoped Auth0 role</text>
+<text x="415" y="540" text-anchor="middle" font-size="12" fill="#534AB7">demo centerpiece</text>
+
+<rect x="492" y="422" width="130" height="146" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+<text x="557" y="446" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">Data-verified</text>
+<text x="557" y="476" text-anchor="middle" font-size="12" fill="#0F6E56">external signal</text>
+<text x="557" y="496" text-anchor="middle" font-size="12" fill="#0F6E56">API, location</text>
+<text x="557" y="540" text-anchor="middle" font-size="12" fill="#0F6E56">stretch goal</text>
+</svg>
