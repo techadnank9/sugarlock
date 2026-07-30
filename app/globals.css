@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
+/* Sugarlock design tokens — see design/design-tokens.md and design/globals.css
+   (source of truth from the handoff package) for the rationale. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #10182b;
+  --ink-soft: #1a2540;
+  --ink-card: #1f2c4d;
+
+  --gold: #d9a441;
+  --gold-soft: #e8c67e;
+  --gold-dim: #8a6d33;
+
+  --paper: #f3efe4;
+  --paper-dim: #c9c2b2;
+
+  --teal: #4ca894;
+
+  --line: rgba(233, 198, 126, 0.16);
+  --line-strong: rgba(233, 198, 126, 0.32);
+
+  --radius-card: 18px;
+  --radius-control: 14px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-card: var(--ink-card);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-dim: var(--gold-dim);
+
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+
+  --color-teal: var(--teal);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-inter);
+
+  --radius-card: var(--radius-card);
+  --radius-control: var(--radius-control);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* State color rule — the core of the visual identity.
+   .is-locked -> gold accents (value held), .is-unlocked -> teal (value freed). */
+.is-locked {
+  --state: var(--gold);
+}
+.is-unlocked {
+  --state: var(--teal);
 }
