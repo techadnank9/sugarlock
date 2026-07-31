@@ -1,64 +1,55 @@
 @import "tailwindcss";
 
-/* Sugarlock design tokens — see design/design-tokens.md and design/globals.css
-   (source of truth from the handoff package) for the rationale. */
 :root {
-  --ink: #10182b;
-  --ink-soft: #1a2540;
-  --ink-card: #1f2c4d;
-
-  --gold: #d9a441;
-  --gold-soft: #e8c67e;
-  --gold-dim: #8a6d33;
-
-  --paper: #f3efe4;
-  --paper-dim: #c9c2b2;
-
-  --teal: #4ca894;
-
-  --line: rgba(233, 198, 126, 0.16);
-  --line-strong: rgba(233, 198, 126, 0.32);
+  --blush: #FFF5F7;
+  --bg: #fafaf9;
+  --panel: #ffffff;
+  --line: #F0DEE3;
+  --line-neutral: #e6e4df;
+  --ink: #241620;
+  --ink-soft: #6B5866;
+  --ink-faint: #A796A1;
+  --rose: #C8385F;
+  --rose-deep: #8A1F3D;
+  --rose-tint: #FCE7EC;
+  --sage: #4F7A57;
+  --sage-tint: #E8F0E7;
+  --gold: #E8A33D;
+  --gold-tint: #FDF1DE;
 
   --radius-card: 18px;
   --radius-control: 14px;
 }
 
 @theme inline {
+  --color-blush: var(--blush);
+  --color-bg: var(--bg);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-line-neutral: var(--line-neutral);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
-  --color-ink-card: var(--ink-card);
-
+  --color-ink-faint: var(--ink-faint);
+  --color-rose: var(--rose);
+  --color-rose-deep: var(--rose-deep);
+  --color-rose-tint: var(--rose-tint);
+  --color-sage: var(--sage);
+  --color-sage-tint: var(--sage-tint);
   --color-gold: var(--gold);
-  --color-gold-soft: var(--gold-soft);
-  --color-gold-dim: var(--gold-dim);
-
-  --color-paper: var(--paper);
-  --color-paper-dim: var(--paper-dim);
-
-  --color-teal: var(--teal);
-
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
+  --color-gold-tint: var(--gold-tint);
 
   --font-display: var(--font-fraunces);
+  --font-space: var(--font-space-grotesk);
   --font-body: var(--font-inter);
 
   --radius-card: var(--radius-card);
   --radius-control: var(--radius-control);
 }
 
-body {
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-body), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+html {
+  scroll-behavior: smooth;
 }
 
-/* State color rule — the core of the visual identity.
-   .is-locked -> gold accents (value held), .is-unlocked -> teal (value freed). */
-.is-locked {
-  --state: var(--gold);
-}
-.is-unlocked {
-  --state: var(--teal);
+body {
+  -webkit-font-smoothing: antialiased;
 }
