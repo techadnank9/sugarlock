@@ -17,7 +17,18 @@ export function Sidebar({
   onScheduleClick: () => void
   onUpcomingClick: (gift: ScheduledGift) => void
 }) {
-  const upcoming = [...gifts].sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
+  // "Upcoming" means still ahead of us — delivered gifts and past days drop off.
+  const todayStart = new Date()
+  todayStart.setHours(0, 0, 0, 0)
+
+  const upcoming = gifts
+    .filter((gift) => {
+      if (gift.status === 'delivered') return false
+      const eventDay = new Date(gift.eventDate)
+      eventDay.setHours(0, 0, 0, 0)
+      return eventDay >= todayStart
+    })
+    .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime())
 
   return (
     <aside className={styles.sidebar}>
