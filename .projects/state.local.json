@@ -31,6 +31,16 @@
       "redirectUrl": null,
       "requestedAt": "2026-07-30T22:37:25.645Z",
       "status": "complete"
+    },
+    "vercel": {
+      "accountRequestId": "facctrq_61V8RShoRvZUyrF2b16V8QR2LvSQEx4gWh4tKl5fcBpw",
+      "configuration": {},
+      "linkedAt": "2026-07-30T23:36:50.743Z",
+      "providerId": "prvdr_61ULUAr4zlQgZkvXY5LsG",
+      "providerName": "Vercel",
+      "redirectUrl": null,
+      "requestedAt": "2026-07-30T23:36:50.743Z",
+      "status": "complete"
     }
   },
   "resources": {
@@ -50,17 +60,20 @@
         "name": "sugarlock",
         "app_type": "regular_web",
         "callbacks": [
-          "http://localhost:3000/auth/callback"
+          "http://localhost:3000/auth/callback",
+          "https://sugarlock.vercel.app/auth/callback"
         ],
         "allowed_logout_urls": [
-          "http://localhost:3000"
+          "http://localhost:3000",
+          "https://sugarlock.vercel.app"
         ],
         "web_origins": [
-          "http://localhost:3000"
+          "http://localhost:3000",
+          "https://sugarlock.vercel.app"
         ]
       },
       "createdAt": "2026-07-30T22:37:00.025Z",
-      "lastRevealedAt": "2026-07-30T23:02:05.747Z",
+      "lastRevealedAt": "2026-07-30T23:49:21.860Z",
       "lastStatus": "complete",
       "name": "sugarlock",
       "providerId": "prvdr_61UVctyxfLOj4FpVw5Bmi",
@@ -82,6 +95,19 @@
       "resourceId": "fres_61V8QXmoDjss3B2i316V8QR2LvSQEx4gWh4tKl5fcWoa",
       "serviceId": "project"
     },
+    "sugarlock-3": {
+      "configuration": {
+        "name": "sugarlock"
+      },
+      "createdAt": "2026-07-30T23:37:01.820Z",
+      "lastRevealedAt": "2026-07-30T23:37:02.193Z",
+      "lastStatus": "complete",
+      "name": "sugarlock-3",
+      "providerId": "prvdr_61ULUAr4zlQgZkvXY5LsG",
+      "providerName": "Vercel",
+      "resourceId": "fres_61V8RSugGlLhUUV4816V8QR2LvSQEx4gWh4tKl5fcUFU",
+      "serviceId": "project"
+    },
     "supabase-plan": {
       "configuration": {},
       "createdAt": "2026-07-30T22:37:48.589Z",
@@ -92,6 +118,17 @@
       "providerName": "Supabase",
       "resourceId": "fres_61V8QXGGVq8e0SNJd16V8QR2LvSQEx4gWh4tKl5fcCzo",
       "serviceId": "free"
+    },
+    "vercel-plan": {
+      "configuration": {},
+      "createdAt": "2026-07-30T23:36:53.087Z",
+      "lastRevealedAt": "2026-07-30T23:36:53.463Z",
+      "lastStatus": "complete",
+      "name": "vercel-plan",
+      "providerId": "prvdr_61ULUAr4zlQgZkvXY5LsG",
+      "providerName": "Vercel",
+      "resourceId": "fres_61V8RSl1eXVym6H3Z16V8QR2LvSQEx4gWh4tKl5fcGCW",
+      "serviceId": "hobby"
     }
   },
   "managedProjectVariableEnvKeys": {

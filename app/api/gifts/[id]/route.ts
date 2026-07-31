@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth0 } from '@/lib/auth0'
 import { prisma } from '@/lib/prisma'
 import { roleForGift } from '@/lib/roles'
+import { unlockGiftIfEligible } from '@/lib/unlock-engine'
 import { upsertUserForSession } from '@/lib/users'
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -10,14 +11,23 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   const { id } = await params
   const user = await upsertUserForSession(session.user)
-  const gift = await prisma.gift.findUnique({
-    where: { id },
-    include: { condition: { include: { confirmations: true } }, sender: true, recipient: true },
-  })
+  const include = {
+    condition: { include: { confirmations: true } },
+    sender: true,
+    recipient: true,
+  } as const
+  const gift = await prisma.gift.findUnique({ where: { id }, include })
   if (!gift) return NextResponse.json({ error: 'not found' }, { status: 404 })
 
   const role = roleForGift(user.id, gift)
   if (role === 'none') return NextResponse.json({ error: 'forbidden' }, { status: 403 })
+
+  // Evaluate the unlock condition on read, so a gift whose time has passed
+  // reveals itself without waiting for the cron. No-ops unless it passes.
+  if (gift.status === 'locked' && (await unlockGiftIfEligible(gift))) {
+    const refreshed = await prisma.gift.findUnique({ where: { id }, include })
+    if (refreshed) return NextResponse.json({ gift: refreshed, role })
+  }
 
   return NextResponse.json({ gift, role })
 }

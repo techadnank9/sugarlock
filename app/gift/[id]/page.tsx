@@ -46,15 +46,14 @@ export default function GiftDetailPage({
     load()
   }, [load])
 
-  // Redirect-fallback for local/demo Stripe funding, then poll-on-load unlock check.
+  // Redirect-fallback for local/demo Stripe funding. The unlock condition is
+  // evaluated server-side in GET /api/gifts/[id], so there is nothing to poll:
+  // calling the cron endpoint from here used to loop forever whenever the gift
+  // stayed `locked` (its own load() re-triggered this effect).
   useEffect(() => {
     if (!data) return
     if (funded === '1' && data.gift.status === 'draft') {
       fetch(`/api/gifts/${id}/confirm-funding`, { method: 'POST' }).then(load)
-      return
-    }
-    if (data.gift.status === 'locked' && !process.env.NEXT_PUBLIC_HAS_CRON) {
-      fetch('/api/cron/unlock').then(load)
     }
   }, [data, funded, id, load])
 

@@ -6,6 +6,9 @@
     },
     "supabase": {
       "name": "Supabase"
+    },
+    "vercel": {
+      "name": "Vercel"
     }
   },
   "resources": {
@@ -24,10 +27,20 @@
       "providerName": "Supabase",
       "serviceId": "project"
     },
+    "sugarlock-3": {
+      "name": "sugarlock-3",
+      "providerName": "Vercel",
+      "serviceId": "project"
+    },
     "supabase-plan": {
       "name": "supabase-plan",
       "providerName": "Supabase",
       "serviceId": "free"
+    },
+    "vercel-plan": {
+      "name": "vercel-plan",
+      "providerName": "Vercel",
+      "serviceId": "hobby"
     }
   },
   "environments": {
@@ -44,7 +57,13 @@
           "resourceName": "sugarlock-2"
         },
         {
+          "resourceName": "sugarlock-3"
+        },
+        {
           "resourceName": "supabase-plan"
+        },
+        {
+          "resourceName": "vercel-plan"
         }
       ],
       "variables": [
