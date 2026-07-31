@@ -1,61 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { upsertUserForSession, upsertPendingUser } from '@/lib/users'
-import { signConfirmToken } from '@/lib/confirm-token'
+import { upsertUserForSession } from '@/lib/users'
 import { getAppSession } from '@/lib/session'
+
+export async function GET(request: NextRequest) {
+  const session = await getAppSession(request)
+  if (!session?.user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
+
+  const user = await upsertUserForSession(session.user)
+  const gifts = await prisma.scheduledGift.findMany({
+    where: { userId: user.id },
+    orderBy: { eventDate: 'asc' },
+  })
+  return NextResponse.json({ gifts })
+}
 
 export async function POST(request: NextRequest) {
   const session = await getAppSession(request)
   if (!session?.user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
 
   const body = await request.json()
-  const { amountCents, recipientEmail, note, conditionType, conditionParams } = body
+  const { recipientName, address, lat, lng, occasion, eventDate, graceDays, colorHex, product } = body
 
-  if (!amountCents || amountCents <= 0) {
-    return NextResponse.json({ error: 'amountCents must be positive' }, { status: 400 })
+  if (!recipientName || typeof recipientName !== 'string') {
+    return NextResponse.json({ error: 'recipientName is required' }, { status: 400 })
   }
-  if (!['time', 'self', 'third_party', 'data'].includes(conditionType)) {
-    return NextResponse.json({ error: 'invalid conditionType' }, { status: 400 })
-  }
-  if (!recipientEmail) {
-    return NextResponse.json({ error: 'recipientEmail is required' }, { status: 400 })
-  }
-  if (conditionType === 'third_party' && !conditionParams?.confirmerEmail) {
-    return NextResponse.json({ error: 'conditionParams.confirmerEmail is required for third_party' }, { status: 400 })
+  if (!eventDate) {
+    return NextResponse.json({ error: 'eventDate is required' }, { status: 400 })
   }
 
-  const sender = await upsertUserForSession(session.user)
-  const recipient = await upsertPendingUser(recipientEmail)
-
-  const gift = await prisma.gift.create({
+  const user = await upsertUserForSession(session.user)
+  const gift = await prisma.scheduledGift.create({
     data: {
-      senderId: sender.id,
-      recipientId: recipient.id,
-      amountCents,
-      note,
-      status: 'draft',
-      condition: {
-        create: {
-          type: conditionType,
-          params: conditionParams ?? {},
-          unlockAt:
-            conditionType === 'time' && conditionParams?.unlockAt ? new Date(conditionParams.unlockAt) : null,
-        },
-      },
+      userId: user.id,
+      recipientName,
+      address: address ?? '',
+      lat: typeof lat === 'number' ? lat : null,
+      lng: typeof lng === 'number' ? lng : null,
+      occasion: occasion ?? null,
+      eventDate: new Date(eventDate),
+      graceDays: typeof graceDays === 'number' ? graceDays : 4,
+      colorHex: colorHex ?? '#F4511E',
+      productIcon: product?.icon ?? null,
+      productName: product?.name ?? null,
+      productPriceCents: typeof product?.price === 'number' ? Math.round(product.price * 100) : null,
+      productStore: product?.store ?? null,
     },
-    include: { condition: true },
   })
-
-  let confirmUrl: string | null = null
-  if (conditionType === 'third_party' && gift.condition) {
-    const confirmer = await upsertPendingUser(conditionParams.confirmerEmail)
-    await prisma.confirmation.create({
-      data: { conditionId: gift.condition.id, confirmerId: confirmer.id, decision: 'pending' },
-    })
-    const token = await signConfirmToken(gift.condition.id)
-    const base = process.env.APP_BASE_URL ?? request.nextUrl.origin
-    confirmUrl = `${base}/confirm/${token}`
-  }
-
-  return NextResponse.json({ gift, confirmUrl })
+  return NextResponse.json({ gift })
 }
