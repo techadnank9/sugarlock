@@ -7,79 +7,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum GiftStatus {
-  draft
-  funded
-  locked
-  unlocked
-  released
-}
-
-enum ConditionType {
-  time
-  self
-  third_party
-  data
-}
-
-enum Decision {
-  pending
-  approved
-  declined
+enum ScheduledGiftStatus {
+  scheduled
+  ordered
+  delivered
 }
 
 model User {
-  id            String         @id @default(uuid())
-  auth0Id       String         @unique
-  email         String         @unique
-  displayName   String?
-  sentGifts     Gift[]         @relation("sender")
-  receivedGifts Gift[]         @relation("recipient")
-  confirmations Confirmation[]
-  createdAt     DateTime       @default(now())
+  id          String          @id @default(uuid())
+  auth0Id     String          @unique
+  email       String          @unique
+  displayName String?
+  gifts       ScheduledGift[]
+  createdAt   DateTime        @default(now())
 }
 
-model Gift {
-  id          String        @id @default(uuid())
-  sender      User          @relation("sender", fields: [senderId], references: [id])
-  senderId    String
-  recipient   User          @relation("recipient", fields: [recipientId], references: [id])
-  recipientId String
-  amountCents Int
-  note        String?
-  status      GiftStatus    @default(draft)
-  stripeRef   String?
-  condition   Condition?
-  ledger      LedgerEntry[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-}
-
-model Condition {
-  id            String         @id @default(uuid())
-  gift          Gift           @relation(fields: [giftId], references: [id])
-  giftId        String         @unique
-  type          ConditionType
-  params        Json
-  unlockAt      DateTime?
-  confirmations Confirmation[]
-}
-
-model Confirmation {
-  id          String    @id @default(uuid())
-  condition   Condition @relation(fields: [conditionId], references: [id])
-  conditionId String    @unique
-  confirmer   User      @relation(fields: [confirmerId], references: [id])
-  confirmerId String
-  decision    Decision  @default(pending)
-  decidedAt   DateTime?
-}
-
-model LedgerEntry {
-  id          String   @id @default(uuid())
-  gift        Gift     @relation(fields: [giftId], references: [id])
-  giftId      String
-  event       String
-  amountCents Int
-  at          DateTime @default(now())
+model ScheduledGift {
+  id                String              @id @default(uuid())
+  user              User                @relation(fields: [userId], references: [id])
+  userId            String
+  recipientName     String
+  address           String
+  lat               Float?
+  lng               Float?
+  occasion          String?
+  eventDate         DateTime
+  graceDays         Int                 @default(4)
+  colorHex          String
+  productIcon       String?
+  productName       String?
+  productPriceCents Int?
+  productStore      String?
+  status            ScheduledGiftStatus @default(scheduled)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
 }
