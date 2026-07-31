@@ -1,11 +1,12 @@
-import { auth0 } from '@/lib/auth0'
 import { prisma } from '@/lib/prisma'
 import { upsertUserForSession } from '@/lib/users'
+import { getAppSession } from '@/lib/session'
 import { TopBar } from '@/components/TopBar'
 import { GiftCard } from '@/components/GiftCard'
+import { SkipLoginButton } from '@/components/SkipLoginButton'
 
 export default async function Home() {
-  const session = await auth0.getSession()
+  const session = await getAppSession()
 
   if (!session?.user) {
     return (
@@ -19,6 +20,7 @@ export default async function Home() {
           <a href="/auth/login" className="rounded-control bg-gold px-6 py-3 font-medium text-ink">
             Log in to get started
           </a>
+          <SkipLoginButton />
         </main>
       </>
     )
@@ -33,7 +35,11 @@ export default async function Home() {
 
   return (
     <>
-      <TopBar role="sender" userLabel={session.user.name ?? session.user.email ?? undefined} />
+      <TopBar
+        role="sender"
+        userLabel={session.user.name ?? session.user.email ?? undefined}
+        isGuest={session.isGuest}
+      />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
         <div className="mb-8 flex items-center justify-between">
           <h1 className="font-display text-3xl">Your gifts</h1>

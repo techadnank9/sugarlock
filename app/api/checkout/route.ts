@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth0 } from '@/lib/auth0'
 import { prisma } from '@/lib/prisma'
 import { stripe } from '@/lib/stripe'
+import { getAppSession } from '@/lib/session'
 
 export async function POST(request: NextRequest) {
-  const session = await auth0.getSession(request)
+  const session = await getAppSession(request)
   if (!session?.user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
 
   const { giftId } = await request.json()

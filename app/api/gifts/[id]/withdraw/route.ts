@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth0 } from '@/lib/auth0'
 import { prisma } from '@/lib/prisma'
 import { upsertUserForSession } from '@/lib/users'
+import { getAppSession } from '@/lib/session'
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth0.getSession(request)
+  const session = await getAppSession(request)
   if (!session?.user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
 
   const { id } = await params

@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { auth0 } from '@/lib/auth0'
 import { prisma } from '@/lib/prisma'
 import { stripe } from '@/lib/stripe'
+import { getAppSession } from '@/lib/session'
 
 /** Redirect-fallback for local/demo environments where the Stripe webhook
  * can't reach localhost. Re-checks payment status directly with Stripe
  * before transitioning, so it's safe even if the webhook also fires. */
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth0.getSession(request)
+  const session = await getAppSession(request)
   if (!session?.user) return NextResponse.json({ error: 'unauthenticated' }, { status: 401 })
 
   const { id } = await params
