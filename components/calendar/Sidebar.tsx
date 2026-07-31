@@ -49,7 +49,11 @@ export function Sidebar({
                     ? `${gift.productIcon ?? ''} ${gift.productName} · $${((gift.productPriceCents ?? 0) / 100).toFixed(0)} · ${gift.productStore}`
                     : new Date(gift.eventDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </div>
-                <span className={`${styles['upcoming-status']} ${styles[gift.status]}`}>{gift.status}</span>
+                {gift.paymentStatus === 'unpaid' ? (
+                  <span className={`${styles['upcoming-status']} ${styles.unpaid}`}>Pay now</span>
+                ) : (
+                  <span className={`${styles['upcoming-status']} ${styles[gift.status]}`}>{gift.status}</span>
+                )}
               </div>
             </div>
           ))}

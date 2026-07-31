@@ -1,5 +1,7 @@
 export type GiftStatus = 'scheduled' | 'ordered' | 'delivered'
 
+export type PaymentStatus = 'unpaid' | 'paid'
+
 export type ScheduledGift = {
   id: string
   recipientName: string
@@ -15,4 +17,5 @@ export type ScheduledGift = {
   productPriceCents: number | null
   productStore: string | null
   status: GiftStatus
+  paymentStatus: PaymentStatus
 }

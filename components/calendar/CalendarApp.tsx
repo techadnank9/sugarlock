@@ -16,6 +16,7 @@ export function CalendarApp({ isGuest }: { isGuest: boolean }) {
   const [gifts, setGifts] = useState<ScheduledGift[]>([])
   const [viewDate, setViewDate] = useState(() => new Date())
   const [modalState, setModalState] = useState<{ date: Date; gift: ScheduledGift | null } | null>(null)
+  const [notice, setNotice] = useState<string | null>(null)
 
   const load = useCallback(async () => {
     const res = await fetch('/api/gifts')
@@ -26,6 +27,26 @@ export function CalendarApp({ isGuest }: { isGuest: boolean }) {
 
   useEffect(() => {
     load()
+  }, [load])
+
+  /** Stripe sends the browser back here after Checkout. Confirming against
+   * Stripe directly means local dev doesn't need the webhook forwarder. */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const outcome = params.get('checkout')
+    if (!outcome) return
+
+    const giftId = params.get('gift')
+    const clearUrl = () => window.history.replaceState({}, '', window.location.pathname)
+
+    if (outcome === 'success' && giftId) {
+      fetch(`/api/gifts/${giftId}/confirm-payment`, { method: 'POST' })
+        .then(load)
+        .finally(clearUrl)
+    } else {
+      setNotice("Checkout cancelled — the gift is saved but not paid for yet.")
+      clearUrl()
+    }
   }, [load])
 
   useEffect(() => {
@@ -58,6 +79,11 @@ export function CalendarApp({ isGuest }: { isGuest: boolean }) {
         onUpcomingClick={openModalForGift}
       />
       <main className={styles.main}>
+        {notice && (
+          <div className={styles.notice} onClick={() => setNotice(null)}>
+            {notice} <span>Dismiss</span>
+          </div>
+        )}
         <CalendarTopBar viewDate={viewDate} onChange={setViewDate} />
         <MonthGrid viewDate={viewDate} gifts={gifts} onDayClick={openModalForDate} />
       </main>

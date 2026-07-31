@@ -13,6 +13,11 @@ enum ScheduledGiftStatus {
   delivered
 }
 
+enum PaymentStatus {
+  unpaid
+  paid
+}
+
 model User {
   id          String          @id @default(uuid())
   auth0Id     String          @unique
@@ -39,6 +44,8 @@ model ScheduledGift {
   productPriceCents Int?
   productStore      String?
   status            ScheduledGiftStatus @default(scheduled)
+  paymentStatus     PaymentStatus       @default(unpaid)
+  stripeSessionId   String?
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
 }

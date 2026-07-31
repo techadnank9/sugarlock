@@ -102,8 +102,24 @@ export function ScheduleGiftModal({
     setSearched(true)
   }
 
+  const alreadyPaid = existingGift?.paymentStatus === 'paid'
+
+  /** Route handlers that crash (e.g. an unset Stripe key) return a non-JSON
+   * body, so parse defensively and surface something readable either way. */
+  async function readError(res: Response, fallback: string): Promise<string> {
+    try {
+      const body = await res.json()
+      return body.error ?? fallback
+    } catch {
+      return `${fallback} (server error ${res.status})`
+    }
+  }
+
+  /** Saves the gift, then hands off to Stripe Checkout for the product price.
+   * Gifts that are already paid for just save and close. */
   async function handleSave() {
     if (!recipientName.trim()) return
+    if (!selectedProduct && !alreadyPaid) return
     setSaving(true)
     setError(null)
 
@@ -124,8 +140,18 @@ export function ScheduleGiftModal({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       })
-      if (!res.ok) throw new Error((await res.json()).error ?? 'Could not save gift')
-      onSaved()
+      if (!res.ok) throw new Error(await readError(res, 'Could not save gift'))
+      const { gift } = await res.json()
+
+      if (alreadyPaid) {
+        onSaved()
+        return
+      }
+
+      const checkoutRes = await fetch(`/api/gifts/${gift.id}/checkout`, { method: 'POST' })
+      if (!checkoutRes.ok) throw new Error(await readError(checkoutRes, 'Could not start checkout'))
+      const { url } = await checkoutRes.json()
+      window.location.href = url
     } catch (err) {
       setError((err as Error).message)
       setSaving(false)
@@ -310,8 +336,20 @@ export function ScheduleGiftModal({
 
         <div className={styles['modal-footer']}>
           <button className={styles.btn} onClick={onClose}>Cancel</button>
-          <button className={`${styles.btn} ${styles.primary}`} disabled={saving} onClick={handleSave}>
-            {saving ? 'Saving…' : 'Save gift'}
+          <button
+            className={`${styles.btn} ${styles.primary}`}
+            disabled={saving || !recipientName.trim() || (!selectedProduct && !alreadyPaid)}
+            onClick={handleSave}
+          >
+            {saving
+              ? alreadyPaid
+                ? 'Saving…'
+                : 'Redirecting to checkout…'
+              : alreadyPaid
+                ? 'Save changes'
+                : selectedProduct
+                  ? `Pay $${selectedProduct.price} & schedule`
+                  : 'Pick a gift to continue'}
           </button>
         </div>
       </div>
